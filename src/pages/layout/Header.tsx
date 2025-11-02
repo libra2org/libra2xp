@@ -119,12 +119,12 @@ export default function Header() {
               color="inherit"
               underline="none"
               sx={{
-                width: {xs: "30px", sm: "30px", md: "40px"},
-                height: {xs: "30px", sm: "30px", md: "40px"},
+                width: {xs: "60px", sm: "60px", md: "80px"},
+                height: {xs: "60px", sm: "60px", md: "80px"},
                 marginRight: "auto",
               }}
             >
-              <LogoIcon />
+              <LogoIcon style={{width: "100%", height: "100%"}} />
             </Link>
 
             <Nav />
