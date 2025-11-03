@@ -39,6 +39,11 @@ export default function WalletButton({
         onClick={connected ? handleClick : onConnectWalletClick}
         className="wallet-button"
         sx={{borderRadius: "10px"}}
+        disabled={!connected}
+        aria-disabled={!connected}
+        title={
+          connected ? undefined : "Wallet connections are temporarily disabled"
+        }
       >
         {connected ? (
           <>

@@ -15,7 +15,7 @@ import {useLogEventWithBasic} from "../Account/hooks/useLogEventWithBasic";
 import {addressFromWallet} from "../../utils";
 
 const GITHUB_DISCUSSION_URL =
-  "https://github.com/aptos-labs/aptos-developer-discussions/discussions";
+  "https://github.com/libra2foundation/libra2-developer-discussions/discussions";
 
 export function GithubDiscussionsBanner() {
   const [open, setOpen] = useState<boolean>(false);
@@ -61,7 +61,7 @@ export function GithubDiscussionsBanner() {
   );
 
   const text =
-    "Ask your tech questions and hang out with the Aptos developer community in the new developer discussions!";
+    "Ask your tech questions and hang out with the Libra2 developer community in the new developer discussions!";
 
   const children = isOnMobile ? (
     <Stack direction="column">

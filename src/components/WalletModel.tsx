@@ -117,7 +117,7 @@ export default function WalletsModal({
             {hasAptosConnectWallets ? (
               <>
                 <span>Log in or sign up</span>
-                <span>with Social + Aptos Connect</span>
+                <span>with Social + Libra2 Connect</span>
               </>
             ) : (
               "Connect Wallet"
@@ -188,7 +188,7 @@ export default function WalletsModal({
                     appearance: "none",
                   }}
                 >
-                  Aptos Connect <ArrowForward sx={{height: 16, width: 16}} />
+                  Libra2 Connect <ArrowForward sx={{height: 16, width: 16}} />
                 </Box>
               </Typography>
 
@@ -340,7 +340,7 @@ function renderEducationScreen(screen: AboutAptosConnectEducationScreen) {
           <ArrowBack />
         </IconButton>
         <Typography variant="body1" component="h2" width="100%" align="center">
-          About Aptos Connect
+          About Libra2 Connect
         </Typography>
       </Box>
 
