@@ -10,9 +10,8 @@ import {StyledLearnMoreTooltip} from "../../../components/StyledTooltip";
 import IntervalBar, {IntervalType} from "../../../components/IntervalBar";
 
 const EPOCH_TOOLTIP_TEXT =
-  "An epoch in the Aptos blockchain is defined as a duration of time, in seconds, during which a number of blocks are voted on by the validators. The Aptos mainnet epoch is set as 7200 seconds (two hours).";
-const EPOCH_LEARN_MORE_LINK =
-  "https://aptos.dev/en/network/blockchain/staking#epoch";
+  "An epoch in the Libra2 blockchain is defined as a duration of time, in seconds, during which a number of blocks are voted on by the validators. The Libra2 mainnet epoch is set as 7200 seconds (two hours).";
+const EPOCH_LEARN_MORE_LINK = "https://libra2.org/docs/network/staking#epoch";
 
 type EpochProps = {
   isSkeletonLoading: boolean;
