@@ -11,7 +11,13 @@ export type ResponseError = {type: ResponseErrorType; message?: string};
 export async function withResponseError<T>(promise: Promise<T>): Promise<T> {
   return await promise.catch((error) => {
     console.error("ERROR!", error, typeof error);
-    const message = typeof error === "string" ? error : error?.message;
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : typeof error === "string"
+          ? error
+          : JSON.stringify(error);
+
     if (typeof error == "object" && "status" in error) {
       // This is a request!
       error = error as Response;
@@ -28,8 +34,8 @@ export async function withResponseError<T>(promise: Promise<T>): Promise<T> {
     }
 
     if (
-      message
-        ?.toLowerCase()
+      errorMessage
+        .toLowerCase()
         .includes(ResponseErrorType.TOO_MANY_REQUESTS.toLowerCase())
     ) {
       throw {
@@ -37,9 +43,16 @@ export async function withResponseError<T>(promise: Promise<T>): Promise<T> {
       };
     }
 
+    if (errorMessage.toLowerCase().includes("indexer reader")) {
+      throw {
+        type: ResponseErrorType.INDEXER_UNAVAILABLE,
+        message: errorMessage,
+      };
+    }
+
     throw {
       type: ResponseErrorType.UNHANDLED,
-      message: error.toString(),
+      message: errorMessage,
     };
   });
 }

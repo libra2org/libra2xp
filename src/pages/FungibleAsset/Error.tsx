@@ -22,6 +22,15 @@ export default function Error({error, address}: ErrorProps) {
           ({error.type}): {error.message}
         </Alert>
       );
+    case ResponseErrorType.INDEXER_UNAVAILABLE:
+      return (
+        <Alert severity="error" sx={{overflowWrap: "break-word"}}>
+          Indexer service unavailable. Please ensure the indexer reader for this
+          network is running and caught up, then try again.
+          <br />
+          {error.message}
+        </Alert>
+      );
     case ResponseErrorType.UNHANDLED:
       if (address) {
         return (

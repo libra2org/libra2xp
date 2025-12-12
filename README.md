@@ -21,13 +21,13 @@ cp .env.example .env.local
 
 Supported variables:
 
-| Variable              | Default                      |
-| --------------------- | ---------------------------- |
-| `LIBRA2_MAINNET_URL`  | `https://mainnet.libra2.org` |
-| `LIBRA2_TESTNET_URL`  | `https://testnet.libra2.org` |
-| `LIBRA2_DEVNET_URL`   | `https://devnet.libra2.org`  |
-| `LIBRA2_LOCAL_URL`    | `http://127.0.0.1:8080`      |
-| `LIBRA2_LOCALNET_URL` | `http://127.0.0.1:8080`      |
+| Variable              | Default                         |
+| --------------------- | ------------------------------- |
+| `LIBRA2_MAINNET_URL`  | `https://mainnet.libra2.org/v1` |
+| `LIBRA2_TESTNET_URL`  | `https://testnet.libra2.org/v1` |
+| `LIBRA2_DEVNET_URL`   | `https://devnet.libra2.org/v1`  |
+| `LIBRA2_LOCAL_URL`    | `http://127.0.0.1:8080/v1`      |
+| `LIBRA2_LOCALNET_URL` | `http://127.0.0.1:8080/v1`      |
 
 Each `LIBRA2_*_URL` variable overrides the default endpoint for the matching
 network. Variables are loaded from `.env.local` and can be tailored to point to
