@@ -43,6 +43,15 @@ export default function Error({error, address}: ErrorProps) {
           </Alert>
         );
       }
+    case ResponseErrorType.INDEXER_UNAVAILABLE:
+      return (
+        <Alert severity="error">
+          The indexer service for this network is currently unavailable. This
+          can happen if the indexer reader process is not running or is still
+          catching up. Please start the indexer service for the network or try
+          again later.
+        </Alert>
+      );
     case ResponseErrorType.TOO_MANY_REQUESTS:
       return (
         <Alert severity="error">
