@@ -23,15 +23,18 @@ Supported variables:
 
 | Variable              | Default                         |
 | --------------------- | ------------------------------- |
-| `LIBRA2_MAINNET_URL`  | `https://mainnet.libra2.org/v1` |
+| `NODE_REST_URL`       | `https://rpc.libra2.org/v1`     |
+| `INDEXER_URL`         | `https://indexer.libra2.org`    |
 | `LIBRA2_TESTNET_URL`  | `https://testnet.libra2.org/v1` |
 | `LIBRA2_DEVNET_URL`   | `https://devnet.libra2.org/v1`  |
 | `LIBRA2_LOCAL_URL`    | `http://127.0.0.1:8080/v1`      |
 | `LIBRA2_LOCALNET_URL` | `http://127.0.0.1:8080/v1`      |
 
 Each `LIBRA2_*_URL` variable overrides the default endpoint for the matching
-network. Variables are loaded from `.env.local` and can be tailored to point to
-custom fullnodes or indexers.
+network. Use `NODE_REST_URL` to override the mainnet RPC endpoint and
+`INDEXER_URL` for rich explorer data (account resources and account history).
+Variables are loaded from `.env.local` and can be tailored to point to custom
+fullnodes or indexers.
 
 ### Running against different networks
 
@@ -55,10 +58,9 @@ If your local node runs on a non-default address, update `LIBRA2_LOCAL_URL` in
 
 ### GraphQL support
 
-Libra2's indexer does not yet provide the full GraphQL schema.
-When a GraphQL endpoint is unavailable the explorer temporarily
-falls back to REST endpoints, so some queries may be limited until
-native support is added.
+Libra2XP uses the external indexer GraphQL endpoint for rich explorer data.
+Ensure `INDEXER_URL` points at the indexer HTTP base (for example,
+`https://indexer.libra2.org`) so the app can reach `/v1/graphql`.
 
 Build dependencies:
 

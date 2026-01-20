@@ -39,6 +39,13 @@ export function getGraphqlURI(networkName: NetworkName): string | undefined {
 
   const normalizedBase = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
 
+  if (
+    normalizedBase.endsWith("/v1/graphql") ||
+    normalizedBase.endsWith("/graphql")
+  ) {
+    return normalizedBase;
+  }
+
   return `${normalizedBase}/v1/graphql`;
 }
 

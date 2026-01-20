@@ -21,3 +21,5 @@ src/assets/svg/aptos_explorer_svg.zip
 .node-version
 .npmrc
 .gitignore
+.env.local
+.env.example

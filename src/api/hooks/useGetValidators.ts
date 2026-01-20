@@ -94,7 +94,11 @@ export function useGetValidators() {
   const [validators, setValidators] = useState<ValidatorData[]>([]);
 
   useEffect(() => {
-    if (activeValidators.length > 0 && validatorsRawData.length > 0) {
+    if (activeValidators.length === 0) {
+      return;
+    }
+
+    if (validatorsRawData.length > 0) {
       const validatorsCopy = JSON.parse(JSON.stringify(validatorsRawData));
 
       validatorsCopy.forEach((validator: ValidatorData) => {
@@ -105,7 +109,22 @@ export function useGetValidators() {
       });
 
       setValidators(validatorsCopy);
+      return;
     }
+
+    setValidators(
+      activeValidators.map((validator) => ({
+        owner_address: validator.addr,
+        operator_address: validator.addr,
+        voting_power: validator.voting_power,
+        governance_voting_record: "0",
+        last_epoch: 0,
+        last_epoch_performance: "0",
+        liveness: 0,
+        rewards_growth: 0,
+        apt_rewards_distributed: 0,
+      })),
+    );
   }, [activeValidators, validatorsRawData]);
 
   return {validators};
