@@ -43,6 +43,10 @@ import {encodeInputArgsForViewRequest, sortPetraFirst} from "../../../../utils";
 import {accountPagePath} from "../../Index";
 import {parseTypeTag} from "@aptos-labs/ts-sdk";
 import {WalletDeprecationBanner} from "../../../../components/WalletDeprecationBanner";
+import {
+  INDEXER_UNAVAILABLE_MESSAGE,
+  ResponseErrorType,
+} from "../../../../api/client";
 
 type ContractFormType = {
   typeArgs: string[];
@@ -82,6 +86,13 @@ function Contract({
   }
 
   if (error) {
+    if (error.type === ResponseErrorType.INDEXER_UNAVAILABLE) {
+      return (
+        <EmptyTabContent
+          message={`${INDEXER_UNAVAILABLE_MESSAGE} Please check your INDEXER_URL configuration.`}
+        />
+      );
+    }
     return <Error address={address} error={error} />;
   }
 

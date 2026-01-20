@@ -1,5 +1,9 @@
 import React from "react";
-import {ResponseError, ResponseErrorType} from "../../api/client";
+import {
+  INDEXER_UNAVAILABLE_MESSAGE,
+  ResponseError,
+  ResponseErrorType,
+} from "../../api/client";
 import {Alert} from "@mui/material";
 
 type ErrorProps = {
@@ -24,11 +28,9 @@ export default function Error({error, struct}: ErrorProps) {
       );
     case ResponseErrorType.INDEXER_UNAVAILABLE:
       return (
-        <Alert severity="error" sx={{overflowWrap: "break-word"}}>
-          Indexer service unavailable. Please ensure the indexer reader for this
-          network is running and caught up, then try again.
-          <br />
-          {error.message}
+        <Alert severity="info" sx={{overflowWrap: "break-word"}}>
+          {INDEXER_UNAVAILABLE_MESSAGE} Please check your INDEXER_URL
+          configuration.
         </Alert>
       );
     case ResponseErrorType.UNHANDLED:
@@ -49,13 +51,6 @@ export default function Error({error, struct}: ErrorProps) {
           </Alert>
         );
       }
-    case ResponseErrorType.INDEXER_UNAVAILABLE:
-      return (
-        <Alert severity="error">
-          The indexer service for this network is currently unavailable. Please
-          ensure it is running or try again later once it has caught up.
-        </Alert>
-      );
     case ResponseErrorType.TOO_MANY_REQUESTS:
       return (
         <Alert severity="error">

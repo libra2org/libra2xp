@@ -1,7 +1,7 @@
 import {CoinDescription} from "./api/hooks/useGetCoinList";
 
 const DEFAULT_NETWORK_URLS = {
-  mainnet: "https://mainnet.libra2.org/v1",
+  mainnet: "https://rpc.libra2.org/v1",
   testnet: "https://testnet.libra2.org/v1",
   devnet: "https://devnet.libra2.org/v1",
   local: "http://127.0.0.1:8080/v1",
@@ -19,6 +19,8 @@ function normalizeUrl(url?: string, fallback?: string) {
 export const networks: Record<string, string> = {
   mainnet: normalizeUrl(
     import.meta.env.LIBRA2_MAINNET_URL ??
+      import.meta.env.VITE_NODE_REST_URL ??
+      import.meta.env.NODE_REST_URL ??
       import.meta.env.VITE_LIBRA2_NODE_URL ??
       DEFAULT_NETWORK_URLS.mainnet,
     DEFAULT_NETWORK_URLS.mainnet,

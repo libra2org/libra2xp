@@ -25,6 +25,10 @@ import {useNavigate} from "../../../../routing";
 import SidebarItem from "../../Components/SidebarItem";
 import {Code} from "../../Components/CodeSnippet";
 import {accountPagePath} from "../../Index";
+import {
+  INDEXER_UNAVAILABLE_MESSAGE,
+  ResponseErrorType,
+} from "../../../../api/client";
 
 interface ModuleSidebarProps {
   sortedPackages: PackageMetadata[];
@@ -242,6 +246,13 @@ function ABI({address, moduleName}: {address: string; moduleName: string}) {
   }
 
   if (error) {
+    if (error.type === ResponseErrorType.INDEXER_UNAVAILABLE) {
+      return (
+        <EmptyTabContent
+          message={`${INDEXER_UNAVAILABLE_MESSAGE} Please check your INDEXER_URL configuration.`}
+        />
+      );
+    }
     return <Error address={address} error={error} />;
   }
 
