@@ -50,6 +50,18 @@ export type PackageMetadata = {
   manifest: string;
 };
 
+function normalizeResourceType(resource: string): string {
+  const [addressPart, ...rest] = resource.split("::");
+  if (!addressPart || rest.length === 0) {
+    return resource;
+  }
+  const standardized = tryStandardizeAddress(addressPart);
+  if (!standardized) {
+    return resource;
+  }
+  return `${standardized}::${rest.join("::")}`;
+}
+
 export function useGetAccountResource(
   address: string | undefined,
   resource: string,
@@ -69,10 +81,11 @@ export function useGetAccountResource(
           message: `Invalid address '${address}'`,
         };
       }
+      const normalizedResource = normalizeResourceType(resource);
       const data = await fetchIndexerGraphql<IndexerAccountResourceResponse>(
         state.network_name,
         ACCOUNT_RESOURCE_QUERY,
-        {address: standardized, type: resource},
+        {address: standardized, type: normalizedResource},
       );
       const resourceData = data.move_resources[0];
       if (!resourceData) {
