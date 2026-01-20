@@ -1,9 +1,12 @@
 import {gql, useQuery as useGraphqlQuery} from "@apollo/client";
-import {useQuery} from "@tanstack/react-query";
-import {Types} from "aptos";
-import {useGlobalState} from "../../global-config/GlobalConfig";
 import {useGetIsGraphqlClientSupported} from "./useGraphqlClient";
 import {tryStandardizeAddress} from "../../utils";
+import {
+  createIndexerUnavailableError,
+  isIndexerUnavailableMessage,
+  ResponseError,
+  ResponseErrorType,
+} from "../client";
 
 const ACCOUNT_TRANSACTIONS_COUNT_QUERY = gql`
   query AccountTransactionsCount($address: String) {
@@ -18,13 +21,13 @@ const ACCOUNT_TRANSACTIONS_COUNT_QUERY = gql`
   }
 `;
 
-export function useGetAccountAllTransactionCount(
-  address: string,
-): number | undefined {
+export function useGetAccountAllTransactionCount(address: string): {
+  count?: number;
+  error?: ResponseError;
+} {
   // whenever talking to the indexer, the address needs to fill in leading 0s
   // for example: 0x123 => 0x000...000123  (61 0s before 123)
   const addr64Hash = tryStandardizeAddress(address);
-  const [state] = useGlobalState();
   const isGraphqlClientSupported = useGetIsGraphqlClientSupported();
 
   const {loading, error, data} = useGraphqlQuery(
@@ -32,35 +35,26 @@ export function useGetAccountAllTransactionCount(
     {variables: {address: addr64Hash}, skip: !isGraphqlClientSupported},
   );
 
-  const restQuery = useQuery({
-    queryKey: [
-      "account_all_transactions_count",
-      {addr64Hash},
-      state.network_value,
-    ],
-    queryFn: async () => {
-      if (!addr64Hash) {
-        return undefined;
-      }
-      const txns = await state.aptos_client.getAccountTransactions(addr64Hash, {
-        limit: 100,
-      });
-      return txns.length;
-    },
-    enabled: !isGraphqlClientSupported,
-  });
-
-  if (isGraphqlClientSupported) {
-    if (!addr64Hash || loading || error || !data) {
-      return undefined;
-    }
-    return data.move_resources_aggregate?.aggregate?.count;
+  if (!isGraphqlClientSupported) {
+    return {error: createIndexerUnavailableError()};
   }
 
-  if (restQuery.isLoading || restQuery.isError) {
-    return undefined;
+  if (!addr64Hash || loading) {
+    return {};
   }
-  return restQuery.data;
+
+  if (error) {
+    const message = error.message;
+    return isIndexerUnavailableMessage(message)
+      ? {error: createIndexerUnavailableError()}
+      : {error: {type: ResponseErrorType.UNHANDLED, message}};
+  }
+
+  if (!data) {
+    return {};
+  }
+
+  return {count: data.move_resources_aggregate?.aggregate?.count};
 }
 
 const ACCOUNT_TRANSACTIONS_QUERY = gql`
@@ -80,9 +74,8 @@ export function useGetAccountAllTransactionVersions(
   address: string,
   limit: number,
   offset?: number,
-): number[] {
+): {versions: number[]; error?: ResponseError} {
   const addr64Hash = tryStandardizeAddress(address);
-  const [state] = useGlobalState();
   const isGraphqlClientSupported = useGetIsGraphqlClientSupported();
 
   const {loading, error, data} = useGraphqlQuery(ACCOUNT_TRANSACTIONS_QUERY, {
@@ -90,43 +83,30 @@ export function useGetAccountAllTransactionVersions(
     skip: !isGraphqlClientSupported,
   });
 
-  const restQuery = useQuery({
-    queryKey: [
-      "account_all_transactions_versions",
-      {addr64Hash, limit, offset},
-      state.network_value,
-    ],
-    queryFn: async () => {
-      if (!addr64Hash) {
-        return [];
-      }
-      const txns = await state.aptos_client.getAccountTransactions(addr64Hash, {
-        start: offset,
-        limit,
-      });
-      return txns
-        .filter(
-          (txn): txn is Types.Transaction & {version: string} =>
-            "version" in txn,
-        )
-        .map((txn) => Number(txn.version));
-    },
-    enabled: !isGraphqlClientSupported,
-  });
+  if (!isGraphqlClientSupported) {
+    return {versions: [], error: createIndexerUnavailableError()};
+  }
 
-  if (isGraphqlClientSupported) {
-    if (!addr64Hash || loading || error || !data) {
-      return [];
-    }
-    return data.account_transactions.map(
+  if (!addr64Hash || loading) {
+    return {versions: []};
+  }
+
+  if (error) {
+    const message = error.message;
+    return isIndexerUnavailableMessage(message)
+      ? {versions: [], error: createIndexerUnavailableError()}
+      : {versions: [], error: {type: ResponseErrorType.UNHANDLED, message}};
+  }
+
+  if (!data) {
+    return {versions: []};
+  }
+
+  return {
+    versions: data.account_transactions.map(
       (resource: {transaction_version: number}) => {
         return resource.transaction_version;
       },
-    );
-  }
-
-  if (restQuery.isLoading || restQuery.isError || !restQuery.data) {
-    return [];
-  }
-  return restQuery.data;
+    ),
+  };
 }

@@ -8,6 +8,11 @@ import {
   useGetAccountAllTransactionVersions,
 } from "../../../api/hooks/useGetAccountAllTransactions";
 import {useLogEventWithBasic} from "../hooks/useLogEventWithBasic";
+import EmptyTabContent from "../../../components/IndividualPageContent/EmptyTabContent";
+import {
+  INDEXER_UNAVAILABLE_MESSAGE,
+  ResponseErrorType,
+} from "../../../api/client";
 
 function RenderPagination({
   currentPage,
@@ -70,11 +75,22 @@ export function AccountAllTransactionsWithPagination({
     offset,
   );
 
+  if (versions.error?.type === ResponseErrorType.INDEXER_UNAVAILABLE) {
+    return (
+      <EmptyTabContent
+        message={`${INDEXER_UNAVAILABLE_MESSAGE} Please check your INDEXER_URL configuration.`}
+      />
+    );
+  }
+
   return (
     <>
       <Stack spacing={2}>
         <Box sx={{width: "auto", overflowX: "auto"}}>
-          <UserTransactionsTable versions={versions} address={address} />
+          <UserTransactionsTable
+            versions={versions.versions}
+            address={address}
+          />
         </Box>
         {numPages > 1 && (
           <Box sx={{display: "flex", justifyContent: "center"}}>
@@ -93,7 +109,16 @@ type AccountAllTransactionsProps = {
 export default function AccountAllTransactions({
   address,
 }: AccountAllTransactionsProps) {
-  let txnCount = useGetAccountAllTransactionCount(address);
+  const txnCountResponse = useGetAccountAllTransactionCount(address);
+  if (txnCountResponse.error?.type === ResponseErrorType.INDEXER_UNAVAILABLE) {
+    return (
+      <EmptyTabContent
+        message={`${INDEXER_UNAVAILABLE_MESSAGE} Please check your INDEXER_URL configuration.`}
+      />
+    );
+  }
+
+  let txnCount = txnCountResponse.count;
   let canSeeAll = true;
 
   if (txnCount === undefined) {

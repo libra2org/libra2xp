@@ -8,6 +8,31 @@ export enum ResponseErrorType {
 
 export type ResponseError = {type: ResponseErrorType; message?: string};
 
+export const INDEXER_UNAVAILABLE_MESSAGE =
+  "This network’s RPC does not expose indexed account data. Please ensure the Indexer endpoint is configured (INDEXER_URL).";
+
+const INDEXER_UNAVAILABLE_MATCHES = [
+  "indexer reader doesn't exist",
+  "db indexer reader is not available",
+  "internal statekeys index is not enabled",
+  "internal event index is not enabled",
+  "interal transaction by account index is not enabled",
+  "indexer reader",
+];
+
+export function isIndexerUnavailableMessage(message?: string): boolean {
+  if (!message) return false;
+  const lowered = message.toLowerCase();
+  return INDEXER_UNAVAILABLE_MATCHES.some((match) => lowered.includes(match));
+}
+
+export function createIndexerUnavailableError(): ResponseError {
+  return {
+    type: ResponseErrorType.INDEXER_UNAVAILABLE,
+    message: INDEXER_UNAVAILABLE_MESSAGE,
+  };
+}
+
 export async function withResponseError<T>(promise: Promise<T>): Promise<T> {
   return await promise.catch((error) => {
     console.error("ERROR!", error, typeof error);
@@ -25,12 +50,8 @@ export async function withResponseError<T>(promise: Promise<T>): Promise<T> {
         throw {type: ResponseErrorType.NOT_FOUND};
       }
     }
-    if (errorMessage?.toLowerCase().includes("indexer reader doesn't exist")) {
-      throw {
-        type: ResponseErrorType.INDEXER_UNAVAILABLE,
-        message:
-          "Indexer backend is unavailable. Please ensure the indexer service is running for this network or try again later.",
-      };
+    if (isIndexerUnavailableMessage(errorMessage)) {
+      throw createIndexerUnavailableError();
     }
 
     if (
@@ -40,13 +61,6 @@ export async function withResponseError<T>(promise: Promise<T>): Promise<T> {
     ) {
       throw {
         type: ResponseErrorType.TOO_MANY_REQUESTS,
-      };
-    }
-
-    if (errorMessage.toLowerCase().includes("indexer reader")) {
-      throw {
-        type: ResponseErrorType.INDEXER_UNAVAILABLE,
-        message: errorMessage,
       };
     }
 
