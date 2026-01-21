@@ -49,4 +49,9 @@ export function useGetAccountAPTBalance(
   });
 }
 
-export const useGetAccountLBTBalance = useGetAccountAPTBalance;
+export function useGetAccountLBTBalance(
+  address: Types.Address,
+  coinType?: `0x${string}::${string}::${string}`,
+) {
+  return useGetAccountAPTBalance(address, coinType);
+}
