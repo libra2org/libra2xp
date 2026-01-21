@@ -13,7 +13,7 @@ import {
 import {Types} from "aptos";
 import {useContext, useEffect, useState} from "react";
 import {getCanWithdrawPendingInactive} from "../../api";
-import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountLBTBalance";
+import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountAPTBalance";
 import {
   useGetDelegatorStakeInfo,
   StakeOperation,

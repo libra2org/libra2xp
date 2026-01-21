@@ -24,7 +24,7 @@ import {
   useGetDelegationNodeInfo,
 } from "../../api/hooks/delegations";
 import {DelegationStateContext} from "./context/DelegationContext";
-import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountLBTBalance";
+import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountAPTBalance";
 import {MINIMUM_APT_IN_POOL_FOR_EXPLORER} from "./constants";
 import {OCTA} from "../../constants";
 import {Types} from "aptos";

@@ -5,7 +5,7 @@ import {Card} from "../../components/Card";
 import {grey} from "../../themes/colors/libra2ColorPalette";
 import StyledTooltip from "../../components/StyledTooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountLBTBalance";
+import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountAPTBalance";
 import {getPrice} from "../../api/hooks/useGetPrice";
 import {useGlobalState} from "../../global-config/GlobalConfig";
 import {OpenInNew} from "@mui/icons-material";
@@ -13,8 +13,8 @@ import {OpenInNew} from "@mui/icons-material";
 type BalanceCardProps = {
   address: string;
   coinType?: `0x${string}::${string}::${string}`; // 新
-  symbol?: string;                                 // 新
-  decimals?: number;                               // 新，默认 8
+  symbol?: string; // 新
+  decimals?: number; // 新，默认 8
 };
 
 export default function BalanceCard({
@@ -34,9 +34,16 @@ export default function BalanceCard({
   const [price, setPrice] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!isAPT) { setPrice(null); return; }    // 非 APT 不取价
+    if (!isAPT) {
+      setPrice(null);
+      return;
+    } // 非 APT 不取价
     (async () => {
-      try { setPrice(await getPrice()); } catch { setPrice(null); }
+      try {
+        setPrice(await getPrice());
+      } catch {
+        setPrice(null);
+      }
     })();
   }, [isAPT]);
 
@@ -55,11 +62,13 @@ export default function BalanceCard({
           coinType: {theType}
         </Typography>
         {balance.isLoading && (
-          <Typography fontSize={14} color={grey[450]}>Loading balance…</Typography>
+          <Typography fontSize={14} color={grey[450]}>
+            Loading balance…
+          </Typography>
         )}
         {balance.error && (
           <Typography fontSize={12} color="error.main">
-            {String((balance.error as any)?.message ?? balance.error)}
+            {balance.error.message ?? "Failed to load balance."}
           </Typography>
         )}
 
@@ -67,19 +76,27 @@ export default function BalanceCard({
         {balance.data && (
           <>
             <Typography fontSize={17} fontWeight={700}>
-              {`${getFormattedBalanceStr(balance.data, decimals as any)} ${sym}`}
+              {`${getFormattedBalanceStr(balance.data, decimals)} ${sym}`}
             </Typography>
 
-            {isAPT && globalState.network_name === "mainnet" && balanceUSD !== null && (
-              <Typography fontSize={14} color={grey[450]}>
-                ${balanceUSD.toLocaleString(undefined, {maximumFractionDigits: 2})} USD
-              </Typography>
-            )}
+            {isAPT &&
+              globalState.network_name === "mainnet" &&
+              balanceUSD !== null && (
+                <Typography fontSize={14} color={grey[450]}>
+                  $
+                  {balanceUSD.toLocaleString(undefined, {
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  USD
+                </Typography>
+              )}
           </>
         )}
 
         <Stack direction="row" spacing={1} alignItems="center">
-          <Typography fontSize={12} color={grey[450]}>Balance</Typography>
+          <Typography fontSize={12} color={grey[450]}>
+            Balance
+          </Typography>
           <StyledTooltip
             title={`This balance reflects the amount of ${sym} tokens held in your wallet${
               isAPT && globalState.network_name === "mainnet"
