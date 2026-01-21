@@ -14,7 +14,7 @@ export default function TotalSupply() {
     <MetricCard
       data="Loading..."
       label="Total Supply"
-      tooltip="Amount of LBR tokens flowing through the Libra2 network."
+      tooltip="Amount of LBT tokens flowing through the Libra2 network."
     />
   ) : (
     <MetricCard
@@ -24,7 +24,7 @@ export default function TotalSupply() {
           : "-"
       }
       label="Total Supply"
-      tooltip="Amount of LBR tokens flowing through the Libra2 network."
+      tooltip="Amount of LBT tokens flowing through the Libra2 network."
     />
   );
 }

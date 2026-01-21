@@ -20,7 +20,7 @@ export interface ValidatorData {
   liveness: number;
   rewards_growth: number;
   location_stats?: GeoData;
-  apt_rewards_distributed: number;
+  lbt_rewards_distributed: number;
 }
 
 export interface GeoData {
@@ -122,7 +122,7 @@ export function useGetValidators() {
         last_epoch_performance: "0",
         liveness: 0,
         rewards_growth: 0,
-        apt_rewards_distributed: 0,
+        lbt_rewards_distributed: 0,
       })),
     );
   }, [activeValidators, validatorsRawData]);

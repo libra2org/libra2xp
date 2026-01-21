@@ -1,17 +1,17 @@
 -- supply changes on (almost) every version because gas is burned
--- adding coin and FA supply together should give same answer as 0x1::coin::supply view function with "0x1::aptos_coin::AptosCoin"
+-- adding coin and FA supply together should give same answer as 0x1::coin::supply view function with "0x1::libra2_coin::Libra2Coin"
 -- apt mint: validator and storage refund from delete
 -- apt burn: gas fees
 -- more details in 'APT mints and burns' section of https://medium.com/p/535e312946ad
 
 SELECT
-SUM(supply)/1e8 AS apt_supply
+SUM(supply)/1e8 AS lbt_supply
 FROM (
 SELECT -- coins
     tx_version,
     block_height,
     block_timestamp,
-    '0x1::aptos_coin::AptosCoin' AS coin_type, -- coin supply from aggregator
+    '0x1::libra2_coin::Libra2Coin' AS coin_type, -- coin supply from aggregator
     CAST(JSON_VALUE(value.content) AS BIGNUMERIC) AS supply,
 FROM `bigquery-public-data.crypto_aptos_mainnet_us.table_items` 
 WHERE 1=1 -- same for mainnet and testnet

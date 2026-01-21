@@ -76,7 +76,7 @@ export default function ValidatorPage() {
             last_epoch_performance: validator?.last_epoch_performance ?? "",
             liveness: validator?.liveness ?? 0,
             rewards_growth: validator?.rewards_growth ?? 0,
-            apt_rewards_distributed: validator?.apt_rewards_distributed ?? 0,
+            lbt_rewards_distributed: validator?.lbt_rewards_distributed ?? 0,
           }));
 
       setDelegationValidator(

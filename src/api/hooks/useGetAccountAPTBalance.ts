@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {useGlobalState} from "../../global-config/GlobalConfig";
 import {Network, networks} from "../../constants";
 
-export function useGetAccountAPTBalance(
+export function useGetAccountLBTBalance(
   address: Types.Address,
   coinType?: `0x${string}::${string}::${string}`, // 可选：要查的币，不传=APT
 ) {
@@ -13,7 +13,7 @@ export function useGetAccountAPTBalance(
     queryKey: ["coinBalance_rawView", {address, coinType}, state.network_value],
     retry: false,
     queryFn: async () => {
-      const type = coinType ?? ("0x1::aptos_coin::AptosCoin" as const);
+      const type = coinType ?? ("0x1::libra2_coin::Libra2Coin" as const);
 
       // Prefer configured URLs; fall back to mainnet RPC instead of localhost.
       const baseUrl =

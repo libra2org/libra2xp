@@ -68,7 +68,7 @@ export function useValidatorDelegationData() {
             last_epoch_performance: "",
             liveness: 0,
             rewards_growth: 0,
-            apt_rewards_distributed: 0,
+            lbt_rewards_distributed: 0,
           }));
 
       setProcessedValidators([

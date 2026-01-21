@@ -72,8 +72,8 @@ function getValidatorsOrderedBy(
     case "rewardsEarned":
       return validatorsCopy.sort((validator1, validator2) => {
         return (
-          validator2.apt_rewards_distributed -
-          validator1.apt_rewards_distributed
+          validator2.lbt_rewards_distributed -
+          validator1.lbt_rewards_distributed
         );
       });
     default:
@@ -289,7 +289,7 @@ function RewardsEarnedCell({validator, connected}: ValidatorCellProps) {
       }
     >
       <APTCurrencyValue
-        amount={Number(validator.apt_rewards_distributed).toFixed(2)}
+        amount={Number(validator.lbt_rewards_distributed).toFixed(2)}
         decimals={0}
       />
     </GeneralTableCell>
@@ -506,7 +506,7 @@ export function DelegationValidatorsTable() {
             last_epoch_performance: "",
             liveness: 0,
             rewards_growth: 0,
-            apt_rewards_distributed: 0,
+            lbt_rewards_distributed: 0,
           }));
       setDelegationValidators([
         ...validatorsInDelegatedStakingPools,

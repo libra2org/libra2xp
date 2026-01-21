@@ -13,7 +13,7 @@ import {
 import {Types} from "aptos";
 import {useContext, useEffect, useState} from "react";
 import {getCanWithdrawPendingInactive} from "../../api";
-import {useGetAccountAPTBalance} from "../../api/hooks/useGetAccountAPTBalance";
+import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountLBTBalance";
 import {
   useGetDelegatorStakeInfo,
   StakeOperation,
@@ -178,7 +178,7 @@ function ActionsCell({
 }: MyDepositsSectionCellProps) {
   const {account} = useWallet();
   // FIXME wallet address not guaranteed to be defined
-  const balance = useGetAccountAPTBalance(addressFromWallet(account?.address));
+  const balance = useGetAccountLBTBalance(addressFromWallet(account?.address));
   const requirement = getStakeOperationAPTRequirement(
     stakes,
     getStakeOperationFromStakingStatus(status, canWithdrawPendingInactive),

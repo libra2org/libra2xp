@@ -21,8 +21,8 @@ const faqStakingData = [
     question: "What is delegated staking?",
     answer: (
       <React.Fragment>
-        As a Libra2 (LBR) holder, you can delegate your LBR to a delegation
-        pool. The total delegation pool is an aggregation of staked LBR from
+        As a Libra2 (LBT) holder, you can delegate your LBT to a delegation
+        pool. The total delegation pool is an aggregation of staked LBT from
         various token owners, and collectively staked. Libra2 is a
         proof-of-stake network, which means that tokens are staked to{" "}
         <Link to={"#validators-section"}>validators</Link> in order to keep the
@@ -38,19 +38,19 @@ const faqStakingData = [
     ),
   },
   {
-    question: "Can anyone stake LBR?",
-    answer: "Yes, anyone can stake LBR.",
+    question: "Can anyone stake LBT?",
+    answer: "Yes, anyone can stake LBT.",
   },
   {
     question: "Is there a minimum stake?",
     answer:
-      "11 LBR is the required minimum amount to stake. A refundable stake fee is deducted from the stake amount and returned at the end of the epoch.",
+      "11 LBT is the required minimum amount to stake. A refundable stake fee is deducted from the stake amount and returned at the end of the epoch.",
   },
   {
-    question: "How can I stake LBR?",
+    question: "How can I stake LBT?",
     answer: (
       <React.Fragment>
-        You can stake LBR directly by going to the{" "}
+        You can stake LBT directly by going to the{" "}
         <Link to={"/validators/delegation"}>Explorer</Link> page and connecting
         your wallet. If you are using the Petra wallet, you should see the
         following flow:
@@ -59,22 +59,22 @@ const faqStakingData = [
         <ol style={{marginLeft: "1em"}}>
           <li>
             Visit Explorer’s validators page and select the delegations node
-            that you’d like to stake your LBR to.
+            that you’d like to stake your LBT to.
           </li>
           <li>
-            In the validator detail page, click “Stake” to starting staking LBR
+            In the validator detail page, click “Stake” to starting staking LBT
             with this validator.
           </li>
           <li>
             If you haven’t connected the wallet, you will be prompted to connect
             your Petra wallet first. Once you connect your wallet, you may start
-            staking your LBR through the stake dialog and approve transactions
+            staking your LBT through the stake dialog and approve transactions
             in your wallet.
           </li>
         </ol>
         <br />
-        Congratulations! You have successfully staked LBR on Explorer! You can
-        also stake LBR directly to a validator node through the{" "}
+        Congratulations! You have successfully staked LBT on Explorer! You can
+        also stake LBT directly to a validator node through the{" "}
         <Link
           to="https://libra2.org/docs/validators/delegation#perform-delegation-pool-operations"
           target="_blank"
@@ -86,9 +86,9 @@ const faqStakingData = [
     ),
   },
   {
-    question: "Can I unstake my LBR anytime?",
+    question: "Can I unstake my LBT anytime?",
     answer:
-      "You can unstake your LBR at any time, but the funds will not be available until the next validator unlock date. The validator unlock period is 14 days, but the timing follows from when the delegation pool is initiated. Depending on when in the cycle you choose to unstake your LBR, it could be as little as a few hours, or up to 14 days from whence you can withdraw your tokens. I.e. if you unstake 10 days into the 14 day cycle, you have to wait 4 days. If you unstake 8 days into the 14 day cycle, you have to wait 6 days. If you unstaked your tokens, and the unlock date has passed, you will be able to withdraw the tokens.",
+      "You can unstake your LBT at any time, but the funds will not be available until the next validator unlock date. The validator unlock period is 14 days, but the timing follows from when the delegation pool is initiated. Depending on when in the cycle you choose to unstake your LBT, it could be as little as a few hours, or up to 14 days from whence you can withdraw your tokens. I.e. if you unstake 10 days into the 14 day cycle, you have to wait 4 days. If you unstake 8 days into the 14 day cycle, you have to wait 6 days. If you unstaked your tokens, and the unlock date has passed, you will be able to withdraw the tokens.",
   },
   {
     question: "When can I withdraw funds?",
@@ -97,8 +97,8 @@ const faqStakingData = [
         There are two actions that you need to take: unstake and withdraw.{" "}
         <br />
         <br />
-        You can withdraw unstaked LBR at any time as long as it is unlocked. If
-        you have staked LBR, you will have to unstake first and wait for the
+        You can withdraw unstaked LBT at any time as long as it is unlocked. If
+        you have staked LBT, you will have to unstake first and wait for the
         funds to become unlocked. At that point in time, you can then withdraw
         it.
         <br />
@@ -138,9 +138,9 @@ const faqStakingData = [
 
 const faqRewardsData = [
   {
-    question: "How can I earn rewards by staking LBR?",
+    question: "How can I earn rewards by staking LBT?",
     answer:
-      "You can earn rewards based on the amount of LBR you have staked. Your node operator takes a commission, so the rewards you accrue will be net of that.",
+      "You can earn rewards based on the amount of LBT you have staked. Your node operator takes a commission, so the rewards you accrue will be net of that.",
   },
   {
     question: "Can the operator change their commission rate?",
@@ -150,7 +150,7 @@ const faqRewardsData = [
   {
     question: "How much can I expect to earn?",
     answer:
-      "The rewards you earn are calculated based on the amount of LBR you have staked multiplied by the current annual rewards rate and the validator rewards performance minus the operator’s commission rate.",
+      "The rewards you earn are calculated based on the amount of LBT you have staked multiplied by the current annual rewards rate and the validator rewards performance minus the operator’s commission rate.",
   },
   {
     question: "When do I start earning rewards?",
@@ -192,7 +192,7 @@ const faqValidatorData = [
         <br />
         <br />
         Validators start earning rewards when the delegation pool has at least
-        1M LBR. Only active validators will earn rewards.
+        1M LBT. Only active validators will earn rewards.
         <br />
         <br />
         However, please do your own research, Libra2 Research is not responsible

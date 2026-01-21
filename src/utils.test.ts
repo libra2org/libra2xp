@@ -47,7 +47,7 @@ const sourceCodeForTest = `module hippo_aggregator::aggregator {
   use aptos_framework::timestamp;
   use aptos_std::event;
   use aptos_std::type_info::{TypeInfo, type_of};
-  use aptos_framework::aptos_coin::AptosCoin;
+  use aptos_framework::libra2_coin::Libra2Coin;
   use aptos_framework::coin::Coin;
   use std::signer::address_of;
 
@@ -135,7 +135,7 @@ const sourceCodeForTest = `module hippo_aggregator::aggregator {
 
   #[cmd]
   public entry fun create_tortuga_signer(admin: &signer) {
-      use TortugaGovernance::staked_aptos_coin::StakedAptosCoin;
+      use TortugaGovernance::staked_libra2_coin::StakedLibra2Coin;
       assert!(signer::address_of(admin) == @hippo_aggregator, E_NOT_ADMIN);
       let (tortuga_signer, signerCapability) = account::create_resource_account(admin,b"tortuga_signer");
       if (!exists<TortugaSigner>(@hippo_aggregator)){
@@ -143,11 +143,11 @@ const sourceCodeForTest = `module hippo_aggregator::aggregator {
               signerCapability
           });
       };
-      if (!coin::is_account_registered<AptosCoin>(address_of(&tortuga_signer))){
-          coin::register<AptosCoin>(&tortuga_signer);
+      if (!coin::is_account_registered<Libra2Coin>(address_of(&tortuga_signer))){
+          coin::register<Libra2Coin>(&tortuga_signer);
       };
-      if (!coin::is_account_registered<StakedAptosCoin>(address_of(&tortuga_signer))){
-          coin::register<StakedAptosCoin>(&tortuga_signer);
+      if (!coin::is_account_registered<StakedLibra2Coin>(address_of(&tortuga_signer))){
+          coin::register<StakedLibra2Coin>(&tortuga_signer);
       };
   }
 
@@ -166,10 +166,10 @@ const sourceCodeForTest = `module hippo_aggregator::aggregator {
   #[cmd]
   public entry fun init_coin_store_all(admin: &signer){
       use ditto::staked_coin;
-      use TortugaGovernance::staked_aptos_coin;
-      init_coin_store<AptosCoin>(admin);
+      use TortugaGovernance::staked_libra2_coin;
+      init_coin_store<Libra2Coin>(admin);
       init_coin_store<staked_coin::StakedAptos>(admin);
-      init_coin_store<staked_aptos_coin::StakedAptosCoin>(admin);
+      init_coin_store<staked_libra2_coin::StakedLibra2Coin>(admin);
   }
 
   #[test_only]
@@ -212,7 +212,7 @@ const sourceCodeForTest = `module hippo_aggregator::aggregator {
   #[test(admin = @hippo_aggregator)]
   fun test_change_coin_type(admin: &signer) acquires CoinStore {
       init_coin_store_all(admin);
-      let coin = change_coin_type<AptosCoin, AptosCoin>(coin::zero<AptosCoin>());
+      let coin = change_coin_type<Libra2Coin, Libra2Coin>(coin::zero<Libra2Coin>());
       coin::destroy_zero(coin)
   }
 
@@ -325,18 +325,18 @@ const sourceCodeForTest = `module hippo_aggregator::aggregator {
       else if (dex_type == DEX_DITTO) {
           use ditto::ditto_staking;
           use ditto::staked_coin;
-          if (type_of<X>() == type_of<AptosCoin>() && type_of<Y>() == type_of<staked_coin::StakedAptos>()){
+          if (type_of<X>() == type_of<Libra2Coin>() && type_of<Y>() == type_of<staked_coin::StakedAptos>()){
               (
                   option::none(),
                   change_coin_type<staked_coin::StakedAptos, Y>(
                       ditto_staking::exchange_aptos(
-                          change_coin_type<X, AptosCoin>(x_in),
+                          change_coin_type<X, Libra2Coin>(x_in),
                           @hippo_aggregator
                       )
                   )
               )
           }
-          else if (type_of<X>() == type_of<staked_coin::StakedAptos>() && type_of<Y>() == type_of<AptosCoin>()){
+          else if (type_of<X>() == type_of<staked_coin::StakedAptos>() && type_of<Y>() == type_of<Libra2Coin>()){
               abort E_UNSUPPORTED
           }
           else {
@@ -345,10 +345,10 @@ const sourceCodeForTest = `module hippo_aggregator::aggregator {
       }
       else if (dex_type == DEX_TORTUGA){
           use tortuga::stake_router;
-          use TortugaGovernance::staked_aptos_coin;
+          use TortugaGovernance::staked_libra2_coin;
           if (
-              type_of<X>() == type_of<AptosCoin>() &&
-                  type_of<Y>() == type_of<staked_aptos_coin::StakedAptosCoin>()){
+              type_of<X>() == type_of<Libra2Coin>() &&
+                  type_of<Y>() == type_of<staked_libra2_coin::StakedLibra2Coin>()){
 
               let tortuga_signer = account::create_signer_with_capability(
                   &borrow_global<TortugaSigner>(@hippo_aggregator).signerCapability

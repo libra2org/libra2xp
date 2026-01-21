@@ -43,8 +43,8 @@ const ECONIA_MARKETS = [
   {
     market_id: 7,
     base_account_address: "0x1",
-    base_module_name: "aptos_coin",
-    base_struct_name: "AptosCoin",
+    base_module_name: "libra2_coin",
+    base_struct_name: "Libra2Coin",
     quote_account_address:
       "0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa",
     quote_module_name: "asset",
@@ -72,8 +72,8 @@ const ECONIA_MARKETS = [
     base_module_name: "EDOG",
     base_struct_name: "EDOG",
     quote_account_address: "0x1",
-    quote_module_name: "aptos_coin",
-    quote_struct_name: "AptosCoin",
+    quote_module_name: "libra2_coin",
+    quote_struct_name: "Libra2Coin",
     tick_size: 1,
     lot_size: 1000000,
   },
@@ -84,8 +84,8 @@ const ECONIA_MARKETS = [
     base_module_name: "coin",
     base_struct_name: "T",
     quote_account_address: "0x1",
-    quote_module_name: "aptos_coin",
-    quote_struct_name: "AptosCoin",
+    quote_module_name: "libra2_coin",
+    quote_struct_name: "Libra2Coin",
     tick_size: 2,
     lot_size: 2,
   },
@@ -96,8 +96,8 @@ const ECONIA_MARKETS = [
     base_module_name: "asset",
     base_struct_name: "USDC",
     quote_account_address: "0x1",
-    quote_module_name: "aptos_coin",
-    quote_struct_name: "AptosCoin",
+    quote_module_name: "libra2_coin",
+    quote_struct_name: "Libra2Coin",
     tick_size: 1,
     lot_size: 100,
   },
@@ -117,8 +117,8 @@ const ECONIA_MARKETS = [
   {
     market_id: 6,
     base_account_address: "0x1",
-    base_module_name: "aptos_coin",
-    base_struct_name: "AptosCoin",
+    base_module_name: "libra2_coin",
+    base_struct_name: "Libra2Coin",
     quote_account_address:
       "0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa",
     quote_module_name: "asset",
@@ -129,8 +129,8 @@ const ECONIA_MARKETS = [
   {
     market_id: 5,
     base_account_address: "0x1",
-    base_module_name: "aptos_coin",
-    base_struct_name: "AptosCoin",
+    base_module_name: "libra2_coin",
+    base_struct_name: "Libra2Coin",
     quote_account_address:
       "0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa",
     quote_module_name: "asset",
@@ -145,8 +145,8 @@ const ECONIA_MARKETS = [
     base_module_name: "coin",
     base_struct_name: "T",
     quote_account_address: "0x1",
-    quote_module_name: "aptos_coin",
-    quote_struct_name: "AptosCoin",
+    quote_module_name: "libra2_coin",
+    quote_struct_name: "Libra2Coin",
     tick_size: 1,
     lot_size: 1,
   },
@@ -157,8 +157,8 @@ const ECONIA_MARKETS = [
     base_module_name: "asset",
     base_struct_name: "USDC",
     quote_account_address: "0x1",
-    quote_module_name: "aptos_coin",
-    quote_struct_name: "AptosCoin",
+    quote_module_name: "libra2_coin",
+    quote_struct_name: "Libra2Coin",
     tick_size: 10,
     lot_size: 1000,
   },
@@ -182,8 +182,8 @@ const ECONIA_MARKETS = [
     base_module_name: "assets_v1",
     base_struct_name: "EchoCoin002",
     quote_account_address: "0x1",
-    quote_module_name: "aptos_coin",
-    quote_struct_name: "AptosCoin",
+    quote_module_name: "libra2_coin",
+    quote_struct_name: "Libra2Coin",
     tick_size: 1,
     lot_size: 1000000000,
   },
@@ -1798,7 +1798,7 @@ function parseAmisLSDEvent(event: Types.Event): LiquidStaking | undefined {
   const dex =
     "0x111ae3e5bc816a5e63c2da97d0aa3886519e0cd5e4b046659fa35796bd11542a";
   const actionType = "liquid staking";
-  const aptos_coin = "0x1::aptos_coin::AptosCoin";
+  const libra2_coin = "0x1::libra2_coin::Libra2Coin";
   const liquid_aptos =
     "0xa259be733b6a759909f92815927fa213904df6540519568692caf0b068fe8e62";
   const staked_liquid_aptos =
@@ -1832,7 +1832,7 @@ function parseAmisLSDEvent(event: Types.Event): LiquidStaking | undefined {
     } = event.data;
     // Minted {1} for {2}
     assetData.push({asset: liquid_aptos, amount: Number(data.amapt)});
-    assetData.push({asset: aptos_coin, amount: Number(data.apt)});
+    assetData.push({asset: libra2_coin, amount: Number(data.apt)});
   } else if (subActionType === "stake") {
     const data: {
       amapt: string;
@@ -1860,7 +1860,7 @@ function parseAmisLSDEvent(event: Types.Event): LiquidStaking | undefined {
       amount: string;
     } = event.data;
 
-    assetData.push({asset: aptos_coin, amount: Number(data.amount)});
+    assetData.push({asset: libra2_coin, amount: Number(data.amount)});
   } else if (subActionType === "cancel") {
     const data: {
       amount: string;
@@ -1881,7 +1881,7 @@ function parseTruFiLSDEvent(event: Types.Event): LiquidStaking | undefined {
   const dex =
     "0x6f8ca77dd0a4c65362f475adb1c26ae921b1d75aa6b70e53d0e340efd7d8bc80";
   const actionType = "liquid staking";
-  const aptos_coin = "0x1::aptos_coin::AptosCoin";
+  const libra2_coin = "0x1::libra2_coin::Libra2Coin";
   const liquid_aptos =
     "0xaef6a8c3182e076db72d64324617114cacf9a52f28325edc10b483f7f05da0e7";
   const assetData: AssetData[] = [];
@@ -1908,7 +1908,7 @@ function parseTruFiLSDEvent(event: Types.Event): LiquidStaking | undefined {
 
     // Minted {1} for {2}
     assetData.push({asset: liquid_aptos, amount: Number(data.shares_minted)});
-    assetData.push({asset: aptos_coin, amount: Number(data.amount)});
+    assetData.push({asset: libra2_coin, amount: Number(data.amount)});
   } else if (subActionType === "request") {
     const data: {
       shares_burned: string;
@@ -1916,13 +1916,13 @@ function parseTruFiLSDEvent(event: Types.Event): LiquidStaking | undefined {
     } = event.data;
 
     assetData.push({asset: liquid_aptos, amount: Number(data.shares_burned)});
-    assetData.push({asset: aptos_coin, amount: Number(data.amount)});
+    assetData.push({asset: libra2_coin, amount: Number(data.amount)});
   } else if (subActionType === "withdraw") {
     const data: {
       amount: string;
     } = event.data;
 
-    assetData.push({asset: aptos_coin, amount: Number(data.amount)});
+    assetData.push({asset: libra2_coin, amount: Number(data.amount)});
   }
 
   return {
@@ -1937,7 +1937,7 @@ function parseThalaLSDEvent(event: Types.Event): LiquidStaking | undefined {
   const dex =
     "0xfaf4e633ae9eb31366c9ca24214231760926576c7b625313b3688b5e900731f6";
   const actionType = "liquid staking";
-  const aptos_coin = "0x1::aptos_coin::AptosCoin";
+  const libra2_coin = "0x1::libra2_coin::Libra2Coin";
   const liquid_aptos =
     "0xa0d9d647c5737a5aed08d2cfeb39c31cf901d44bc4aa024eaa7e5e68b804e011";
   const staked_liquid_aptos =
@@ -1970,7 +1970,7 @@ function parseThalaLSDEvent(event: Types.Event): LiquidStaking | undefined {
 
     // Minted {1} for {2}
     assetData.push({asset: liquid_aptos, amount: Number(data.minted_thAPT)});
-    assetData.push({asset: aptos_coin, amount: Number(data.staked_APT)});
+    assetData.push({asset: libra2_coin, amount: Number(data.staked_APT)});
   } else if (subActionType === "stake") {
     const data: {
       thAPT_staked: string;
@@ -2000,13 +2000,13 @@ function parseThalaLSDEvent(event: Types.Event): LiquidStaking | undefined {
     } = event.data;
 
     assetData.push({asset: liquid_aptos, amount: Number(data.request_amount)});
-    assetData.push({asset: aptos_coin, amount: Number(data.actual_amount)});
+    assetData.push({asset: libra2_coin, amount: Number(data.actual_amount)});
   } else if (subActionType === "withdraw") {
     const data: {
       unstaked_amount: string;
     } = event.data;
 
-    assetData.push({asset: aptos_coin, amount: Number(data.unstaked_amount)});
+    assetData.push({asset: libra2_coin, amount: Number(data.unstaked_amount)});
   }
 
   return {
@@ -2021,7 +2021,7 @@ function parseKofiLSDEvent(event: Types.Event): LiquidStaking | undefined {
   const dex =
     "0x2cc52445acc4c5e5817a0ac475976fbef966fedb6e30e7db792e10619c76181f";
   const actionType = "liquid staking";
-  const aptos_coin = "0x1::aptos_coin::AptosCoin";
+  const libra2_coin = "0x1::libra2_coin::Libra2Coin";
   const liquid_aptos =
     "0x821c94e69bc7ca058c913b7b5e6b0a5c9fd1523d58723a966fb8c1f5ea888105";
   const staked_liquid_aptos =
@@ -2081,13 +2081,13 @@ function parseKofiLSDEvent(event: Types.Event): LiquidStaking | undefined {
     } = event.data;
 
     assetData.push({asset: liquid_aptos, amount: Number(data.kapt_amount)});
-    assetData.push({asset: aptos_coin, amount: Number(data.apt_amount)});
+    assetData.push({asset: libra2_coin, amount: Number(data.apt_amount)});
   } else if (subActionType === "withdraw") {
     const data: {
       apt_amount: string;
     } = event.data;
 
-    assetData.push({asset: aptos_coin, amount: Number(data.apt_amount)});
+    assetData.push({asset: libra2_coin, amount: Number(data.apt_amount)});
   }
 
   return {

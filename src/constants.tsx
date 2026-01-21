@@ -159,7 +159,7 @@ export const knownAddresses: Record<string, string> = {
   "0x0000000000000000000000000000000000000000000000000000000000000004":
     "Digital Assets (0x4)",
   "0x000000000000000000000000000000000000000000000000000000000000000A":
-    "Aptos Coin Fungible Asset",
+    "Libra2 Coin Fungible Asset",
   "0xdcc43c54a666493b6cbfc1ecc81af0bc24e9b75c5ab3a7065c1fc9632ee8bd82":
     "GovScan Voting",
   // Aptos labs
@@ -470,16 +470,16 @@ export const scamAddresses: Record<string, string> = {
 // This provides a way to hardcode coins that are not in the token list, but still
 // have functionality used elsewhere
 export const HardCodedCoins: Record<string, CoinDescription> = {
-  "0x1::aptos_coin::AptosCoin": {
+  "0x1::libra2_coin::Libra2Coin": {
     chainId: 1,
-    tokenAddress: "0x1::aptos_coin::AptosCoin",
+    tokenAddress: "0x1::libra2_coin::Libra2Coin",
     faAddress: "0xa",
-    name: "Aptos Coin",
-    symbol: "APT",
+    name: "Libra2 Coin",
+    symbol: "LBT",
     decimals: 8,
-    panoraSymbol: "APT",
+    panoraSymbol: "LBT",
     bridge: null,
-    logoUrl: "https://assets.panora.exchange/tokens/aptos/APT.svg",
+    logoUrl: "https://assets.panora.exchange/tokens/aptos/LBT.svg",
     websiteUrl: "https://aptosfoundation.org",
     category: "Native",
     isInPanoraTokenList: true,
@@ -921,11 +921,11 @@ export const EMOJICOIN_REGISTRY_ADDRESS =
   "0x4b947ed016c64bde81972d69ea7d356de670d57fd2608b129f4d94ac0d0ee61";
 
 export const nativeTokens: Record<string, string> = {
-  "0x1::aptos_coin::AptosCoin": "APT",
-  "0x000000000000000000000000000000000000000000000000000000000000000a": "APT",
-  "0x000000000000000000000000000000000000000000000000000000000000000A": "APT",
-  "0xa": "APT",
-  "0xA": "APT",
+  "0x1::libra2_coin::Libra2Coin": "LBT",
+  "0x000000000000000000000000000000000000000000000000000000000000000a": "LBT",
+  "0x000000000000000000000000000000000000000000000000000000000000000A": "LBT",
+  "0xa": "LBT",
+  "0xA": "LBT",
 };
 export const manuallyVerifiedTokens: Record<string, string> = {
   "0x357b0b74bc833e95a115ad22604854d6b0fca151cecd94111770e5d6ffc9dc2b": "USDt",
@@ -957,17 +957,17 @@ export const MARKED_AS_SCAM = "Marked as scam";
 export const labsBannedTokens: Record<string, string> = {
   "0x397071c01929cc6672a17f130bd62b1bce224309029837ce4f18214cc83ce2a7::USDC::USDC":
     MARKED_AS_SCAM,
-  "0x50788befc1107c0cc4473848a92e5c783c635866ce3c98de71d2eeb7d2a34f85::apt_rewards::APTRewards":
+  "0x50788befc1107c0cc4473848a92e5c783c635866ce3c98de71d2eeb7d2a34f85::lbt_rewards::LBTRewards":
     MARKED_AS_SCAM,
   "0xbbc4a9af0e7fa8885bda5db08028e7b882f2c2bba1e0fedbad1d8316f73f8b2f::ograffio::Ograffio":
     MARKED_AS_SCAM,
   "0xf658475dc67a4d48295dbcea6de1dc3c9af64c1c80d4161284df369be941dafb::moon_coin::MoonCoin":
     MARKED_AS_SCAM,
-  "0x48327a479bf5c5d2e36d5e9846362cff2d99e0e27ff92859fc247893fded3fbd::APTOS::APTOS":
+  "0x48327a479bf5c5d2e36d5e9846362cff2d99e0e27ff92859fc247893fded3fbd::LIBRA2::LIBRA2":
     MARKED_AS_SCAM,
   "0xbc106d0fef7e5ce159423a1a9312e011bca7fb57f961146a2f88003a779b25c2::QUEST::QUEST":
     MARKED_AS_SCAM,
-  "0xbe5e8fa9dd45e010cadba1992409a0fc488ca81f386d636ba38d12641ef91136::maincoin::Aptmeme":
+  "0xbe5e8fa9dd45e010cadba1992409a0fc488ca81f386d636ba38d12641ef91136::maincoin::Lbtmeme":
     MARKED_AS_SCAM,
 };
 export const labsBannedAddresses: Record<string, string> = {
@@ -978,5 +978,5 @@ export const labsBannedAddresses: Record<string, string> = {
 };
 
 export const labsBannedTokenSymbols: Record<string, string> = {
-  APT: MARKED_AS_SCAM,
+  LBT: MARKED_AS_SCAM,
 };

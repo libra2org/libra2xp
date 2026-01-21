@@ -5,7 +5,7 @@ import {Card} from "../../components/Card";
 import {grey} from "../../themes/colors/libra2ColorPalette";
 import StyledTooltip from "../../components/StyledTooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import {useGetAccountAPTBalance} from "../../api/hooks/useGetAccountAPTBalance";
+import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountLBTBalance";
 import {getPrice} from "../../api/hooks/useGetPrice";
 import {useGlobalState} from "../../global-config/GlobalConfig";
 import {OpenInNew} from "@mui/icons-material";
@@ -23,12 +23,12 @@ export default function BalanceCard({
   symbol,
   decimals = 8,
 }: BalanceCardProps) {
-  const APT = "0x1::aptos_coin::AptosCoin" as const;
+  const APT = "0x1::libra2_coin::Libra2Coin" as const;
   const theType = coinType ?? APT;
   const isAPT = theType === APT;
 
   // 查询余额（已支持任意 coinType）
-  const balance = useGetAccountAPTBalance(address, theType);
+  const balance = useGetAccountLBTBalance(address, theType);
 
   const [globalState] = useGlobalState();
   const [price, setPrice] = useState<number | null>(null);

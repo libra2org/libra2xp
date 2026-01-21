@@ -24,7 +24,7 @@ import {
   useGetDelegationNodeInfo,
 } from "../../api/hooks/delegations";
 import {DelegationStateContext} from "./context/DelegationContext";
-import {useGetAccountAPTBalance} from "../../api/hooks/useGetAccountAPTBalance";
+import {useGetAccountLBTBalance} from "../../api/hooks/useGetAccountLBTBalance";
 import {MINIMUM_APT_IN_POOL_FOR_EXPLORER} from "./constants";
 import {OCTA} from "../../constants";
 import {Types} from "aptos";
@@ -133,7 +133,7 @@ function StakingBarContent({
     <Stack direction="column" spacing={0.5}>
       <Typography sx={{fontWeight: 600}}>
         <APTCurrencyValue
-          amount={Number(validator.apt_rewards_distributed).toFixed(0)}
+          amount={Number(validator.lbt_rewards_distributed).toFixed(0)}
           decimals={0}
         />
       </Typography>
@@ -147,7 +147,7 @@ function StakingBarContent({
   );
 
   const walletAddress = addressFromWallet(account?.address);
-  const balance = useGetAccountAPTBalance(walletAddress);
+  const balance = useGetAccountLBTBalance(walletAddress);
   const [state] = useGlobalState();
   const {stakes} = useGetDelegatorStakeInfo(
     walletAddress,

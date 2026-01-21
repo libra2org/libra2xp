@@ -2,7 +2,7 @@ import {Types} from "aptos";
 import {ValidatorData} from "../useGetValidators";
 import {useWallet} from "@aptos-labs/wallet-adapter-react";
 import {getLockedUtilSecs} from "../../../pages/DelegatoryValidator/utils";
-import {useGetAccountAPTBalance} from "../useGetAccountAPTBalance";
+import {useGetAccountLBTBalance} from "../useGetAccountLBTBalance";
 import {useGetNumberOfDelegators} from "./useGetNumberOfDelegators";
 import {useGetStakingRewardsRate} from "../useGetStakingRewardsRate";
 import {addressFromWallet} from "../../../utils";
@@ -21,7 +21,7 @@ export function useGetDelegationState(
   const {account} = useWallet();
   const lockedUntilSecs = getLockedUtilSecs(accountResource);
   // FIXME Handle the case where the account is not connected
-  const balance = useGetAccountAPTBalance(addressFromWallet(account?.address));
+  const balance = useGetAccountLBTBalance(addressFromWallet(account?.address));
   const {numberOfDelegators} = useGetNumberOfDelegators(
     validator.owner_address,
   );

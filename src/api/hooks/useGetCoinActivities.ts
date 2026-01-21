@@ -24,7 +24,7 @@ export function useGetCoinActivities(
         fungible_asset_activities(
           where: {
             asset_type: {_eq: $asset}
-            type: {_neq: "0x1::aptos_coin::GasFeeEvent"}
+            type: {_neq: "0x1::libra2_coin::GasFeeEvent"}
           }
           offset: $offset
           limit: 100

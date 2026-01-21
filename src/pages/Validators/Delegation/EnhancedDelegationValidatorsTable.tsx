@@ -116,8 +116,8 @@ function getSortedValidators(
       break;
     case "rewardsEarned":
       sortedValidators.sort((a, b) => {
-        const aRewards = Number(a.apt_rewards_distributed) || 0;
-        const bRewards = Number(b.apt_rewards_distributed) || 0;
+        const aRewards = Number(a.lbt_rewards_distributed) || 0;
+        const bRewards = Number(b.lbt_rewards_distributed) || 0;
         const comparison = aRewards - bRewards;
         return direction === "asc" ? comparison : -comparison;
       });
@@ -141,8 +141,8 @@ function getSortedValidators(
     default:
       // Default sort by rewards earned
       sortedValidators.sort((a, b) => {
-        const aRewards = Number(a.apt_rewards_distributed) || 0;
-        const bRewards = Number(b.apt_rewards_distributed) || 0;
+        const aRewards = Number(a.lbt_rewards_distributed) || 0;
+        const bRewards = Number(b.lbt_rewards_distributed) || 0;
         const comparison = aRewards - bRewards;
         return direction === "desc" ? -comparison : comparison;
       });
@@ -369,7 +369,7 @@ function RewardsEarnedCell({
   connected: boolean;
 }) {
   const theme = useTheme();
-  const rewardsAmount = Number(validator.apt_rewards_distributed) || 0;
+  const rewardsAmount = Number(validator.lbt_rewards_distributed) || 0;
 
   return (
     <GeneralTableCell

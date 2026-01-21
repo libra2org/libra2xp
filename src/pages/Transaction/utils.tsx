@@ -42,7 +42,7 @@ export function getTransactionCounterparty(
 
   // there are two scenarios that this transaction is an APT coin transfer:
   // 1. coins are transferred from account1 to account2:
-  //    payload function is "0x1::coin::transfer" or "0x1::aptos_account::transfer_coins" and the first item in type_arguments is "0x1::aptos_coin::AptosCoin"
+  //    payload function is "0x1::coin::transfer" or "0x1::aptos_account::transfer_coins" and the first item in type_arguments is "0x1::libra2_coin::Libra2Coin"
   // 2. coins are transferred from account1 to account2, and account2 is created upon transaction:
   //    payload function is "0x1::aptos_account::transfer" or "0x1::aptos_account::transfer_coins"
   // In both scenarios, the first item in arguments is the receiver's address, and the second item is the amount.
@@ -324,7 +324,7 @@ function getAptChangeData(
     "address" in change &&
     "data" in change &&
     "type" in change.data &&
-    change.data.type === "0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>" &&
+    change.data.type === "0x1::coin::CoinStore<0x1::libra2_coin::Libra2Coin>" &&
     "data" in change.data
   ) {
     return JSON.parse(JSON.stringify(change.data.data)) as ChangeData;
