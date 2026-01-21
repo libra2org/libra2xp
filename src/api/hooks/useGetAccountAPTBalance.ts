@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {useGlobalState} from "../../global-config/GlobalConfig";
 import {Network, networks} from "../../constants";
 
-export function useGetAccountLBTBalance(
+export function useGetAccountAPTBalance(
   address: Types.Address,
   coinType?: `0x${string}::${string}::${string}`, // 可选：要查的币，不传=APT
 ) {
@@ -48,3 +48,5 @@ export function useGetAccountLBTBalance(
     },
   });
 }
+
+export const useGetAccountLBTBalance = useGetAccountAPTBalance;
