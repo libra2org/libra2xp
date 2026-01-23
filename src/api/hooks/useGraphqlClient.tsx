@@ -17,6 +17,8 @@ function getIsGraphqlClientSupportedFor(networkName: NetworkName): boolean {
 
 function getIndexerBaseUrl(networkName: NetworkName): string | undefined {
   const defaultIndexer =
+    import.meta.env.LIBRA2_INDEXER_URL ??
+    import.meta.env.LIBRA2_INDEXER_HTTP ??
     import.meta.env.VITE_INDEXER_URL ??
     import.meta.env.INDEXER_URL ??
     import.meta.env.VITE_LIBRA2_INDEXER_HTTP ??

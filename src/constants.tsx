@@ -19,6 +19,8 @@ function normalizeUrl(url?: string, fallback?: string) {
 export const networks: Record<string, string> = {
   mainnet: normalizeUrl(
     import.meta.env.LIBRA2_MAINNET_URL ??
+      import.meta.env.LIBRA2_NODE_REST_URL ??
+      import.meta.env.LIBRA2_NODE_URL ??
       import.meta.env.VITE_NODE_REST_URL ??
       import.meta.env.NODE_REST_URL ??
       import.meta.env.VITE_LIBRA2_NODE_URL ??
